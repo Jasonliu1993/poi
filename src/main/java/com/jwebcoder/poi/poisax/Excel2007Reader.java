@@ -3,6 +3,7 @@ package com.jwebcoder.poi.poisax;
 import com.jwebcoder.poi.IRowReader;
 import com.jwebcoder.poi.poisax.model.Cell;
 import com.jwebcoder.poi.poisax.model.CellDataType;
+import com.jwebcoder.poi.utilities.HexConversionUtility;
 import com.sun.org.apache.xerces.internal.impl.xpath.regex.Match;
 import jdk.nashorn.internal.runtime.regexp.joni.Regex;
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
@@ -235,15 +236,8 @@ public class Excel2007Reader extends DefaultHandler {
     }
 
     public int getCurColumn(String excelColumnNum){
-        int rowNum = 0;
-
         String RowNumberString = String.valueOf(getCurRow(excelColumnNum));
-
         String excelColumnNumInLetter = excelColumnNum.substring(0,excelColumnNum.indexOf(RowNumberString));
-        System.out.println(excelColumnNumInLetter);
-        for(char index : excelColumnNumInLetter.toCharArray()) {
-            rowNum = rowNum + index -64;
-        }
-        return rowNum;
+        return HexConversionUtility.convertToDecimalSystem(excelColumnNumInLetter);
     }
 }
